@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="270" height="265.82" version="1.1" viewBox="0 0 270 265.82" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter2052" x="-.027506" y="-.020758" width="1.0779" height="1.0588" color-interpolation-filters="sRGB">
+   <feFlood flood-color="rgb(0,0,0)" flood-opacity=".49804" result="flood"/>
+   <feComposite in="flood" in2="SourceGraphic" operator="in" result="composite1"/>
+   <feGaussianBlur in="composite1" result="blur" stdDeviation="3"/>
+   <feOffset dx="6" dy="6" result="offset"/>
+   <feComposite in="SourceGraphic" in2="offset" result="composite2"/>
+  </filter>
+ </defs>
+ <g transform="matrix(.70711 .96447 -.70711 .44974 78.572 7.1108)" filter="url(#filter2052)">
+  <path d="m172.95 0.5576-36.404 77.231-91.345-176.3-45.201 98.508 145.94 248.07 115.82-248.07z" fill="#41b883"/>
+  <path d="m172.74 0.631-36.342 76.864-91.215-176.29-20.229 44.4 115.24 209.9 69.07-155.19z" fill="#34495e"/>
+ </g>
+</svg>
