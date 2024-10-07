@@ -3,7 +3,7 @@ name: Build and Deploy to Remote Server with ttl.sh
 on:
   push:
     branches:
-      - develop-vue
+      - main
   workflow_dispatch:
 
 jobs:
