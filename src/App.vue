@@ -3,7 +3,7 @@ import Login from './components/Login.vue'
 import Player from './components/Player.vue'
 import Playlist from './components/Playlist.vue'
 import Menu from './components/Menu.vue'
-import Header from './components/header.vue'
+import Header from './components/Header.vue'
 
 export default {
     name: 'app',
