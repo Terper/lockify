@@ -1,11 +1,21 @@
 @import './base.css';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
-  max-width: 1280px;
+  width: 80%;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  display: flex;
+  flex-direction: column; 
+  gap: 2rem; 
 }
+
 
 a,
 .green {
@@ -28,10 +38,8 @@ a,
   }
 
   #app {
-    display: grid;
-    grid-template: "logoGreeting logoGreeting login" auto
-      "menu player playlist" auto / 1fr 2fr 15rem;
-    gap: 10px;
     padding: 0 2rem;
+    gap: 3rem;
   }
 }
+

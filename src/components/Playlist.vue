@@ -1,6 +1,9 @@
 <template>
     <div class="playlist">
-        <h2>Current Playlist</h2>
+        <h2>Display playlists here</h2>
+    </div>
+    <div class="playlist">
+        <h2>Add other functionalities</h2>
     </div>
 </template>
 
@@ -9,7 +12,8 @@
 </script>
 
 <style>
-.playlist {
-    grid-area: playlist;
+.playlist{
+    display: flex;
+    justify-content: center;
 }
 </style>

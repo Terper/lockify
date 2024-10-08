@@ -3,6 +3,7 @@ import Login from './components/Login.vue'
 import Player from './components/Player.vue'
 import Playlist from './components/Playlist.vue'
 import Menu from './components/Menu.vue'
+import Header from './components/header.vue'
 
 export default {
     name: 'app',
@@ -10,7 +11,8 @@ export default {
         Login,
         Player,
         Playlist,
-        Menu
+        Menu,
+        Header
     },
     data() {
         return {
@@ -30,21 +32,9 @@ export default {
 </script>
 
 <template>
-    <header class="logoGreeting">
-        <img alt="Lockify logo" class="logo" src="./assets/logo-lockify.svg" width="125" height="125"/>
-        <div class="wrapper">
-            <div class="greetings">
-                <h1 class="green">Lockify♫<br> Play Yourself {{ username }}</h1>
-            </div>
-        </div>
-    </header>
-    <Login @updateLoginStatus="onLoginClick"></Login>
+    <Header :username="username"></Header>
     <!-- main -->
-    <menu>
-        <Menu></Menu>
-    </menu>
-    <Player></Player>
-    <Playlist></Playlist>
+    <Login @updateLoginStatus="onLoginClick"></Login>
     <!-- /main -->
 </template>
 
