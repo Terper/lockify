@@ -4,38 +4,47 @@ import Player from './components/Player.vue'
 import Playlist from './components/Playlist.vue'
 import Menu from './components/Menu.vue'
 import Header from './components/Header.vue'
+import AiRecognizer from "@/components/AiRecognizer.vue";
 
 export default {
-    name: 'app',
-    components: {
-        Login,
-        Player,
-        Playlist,
-        Menu,
-        Header
-    },
-    data() {
-        return {
-            username: ''
-        }
-    },
-    mounted() {
-        console.log("Loaded app. Hello " + this.username)
-    },
-    methods: {
-        onLoginClick(username) {
-            this.username = username
-            
-        }
+  name: 'app',
+  components: {
+    AiRecognizer,
+    Login,
+    Player,
+    Playlist,
+    Menu,
+    Header
+  },
+  data() {
+    return {
+      username: ''
     }
+  },
+  computed: {
+    isAiRecognizerPage() {
+      return window.location.pathname === '/ai';
+    }
+  },
+  methods: {
+    onLoginClick(username) {
+      this.username = username
+
+    }
+  }
 }
 </script>
 
 <template>
+  <template v-if="!isAiRecognizerPage">
     <Header :username="username"></Header>
     <!-- main -->
     <Login @updateLoginStatus="onLoginClick"></Login>
     <!-- /main -->
+  </template>
+  <template v-else>
+    <AiRecognizer/>
+  </template>
 </template>
 
 <style scoped>
