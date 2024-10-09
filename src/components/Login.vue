@@ -37,18 +37,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 [v-cloak] {
     display: none;
 }
 
 button {
+    color: white;
     display: block;
     margin: 2px;
     position: relative;
     top: 80%;}
 
 label {
+    color: white;
     display: block;
     margin: 2px;
 }

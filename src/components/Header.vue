@@ -93,4 +93,12 @@ export default {
   background-color: hsla(160, 100%, 37%, 0.8);
 }
 
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+  font-size: 2rem;
+}
+
 </style>
