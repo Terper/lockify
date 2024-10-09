@@ -38,9 +38,12 @@ export default {
 <template>
   <template v-if="!isAiRecognizerPage">
     <Header :username="username"></Header>
+    <div class="main">
     <!-- main -->
     <Login @updateLoginStatus="onLoginClick"></Login>
     <!-- /main -->
+    </div>
+    <Player></Player>
   </template>
   <template v-else>
     <AiRecognizer/>
@@ -48,18 +51,8 @@ export default {
 </template>
 
 <style scoped>
-header {
-    line-height: 1.5;
-    grid-area: logoGreeting;
-}
-
-.logo {
-    display: block;
-    margin: 0 auto 2rem;
-}
-
-menu {
-    grid-area: menu;
+.main{
+  flex: 1;
 }
 
 @media (min-width: 1024px) {

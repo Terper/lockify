@@ -1,9 +1,9 @@
 <template>
     <div class="playlist">
-        <h2>Display playlists here</h2>
+        <h2>I am playlist.vue</h2>
     </div>
     <div class="playlist">
-        <h2>Add other functionalities</h2>
+        <h2>I am playlist.vue</h2>
     </div>
 </template>
 
