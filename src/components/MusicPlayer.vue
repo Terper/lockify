@@ -35,7 +35,7 @@ function togglePlay() {
 
 <template>
   <div
-      class="animate-fadeIn bg-white w-full flex justify-start items-center px-[16px] py-[8px] rounded"
+      class="animate-fadeIn bg-white w-full flex justify-start items-center px-[16px] py-[8px] rounded overflow-auto break-words min-w-[200px]"
   >
     <p class="font-medium grow text-zinc-800">
       {{ props.music.label }}

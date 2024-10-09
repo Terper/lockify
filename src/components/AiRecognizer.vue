@@ -48,8 +48,9 @@
         </div>
 
         <div class="[grid-area:1/2/3/3] bg-zinc-200 rounded py-[10px] px-[16px] flex">
-          <ul class="flex flex-col gap-y-[12px] w-full">
-            <li v-if="currentMood" v-for="(musicItem, key) in currentMood.musicList" :key="key">
+          <ul class="flex flex-col gap-y-[12px] w-full overflow-scroll">
+            <li class="w-full max-w-full" v-if="currentMood" v-for="(musicItem, key) in currentMood.musicList"
+                :key="key">
               <MusicPlayer :music="{ label: musicItem.label, source: musicItem.src }" :key="key"/>
             </li>
           </ul>
@@ -57,7 +58,7 @@
 
         <div
             v-if="message"
-            class="[grid-area:2/1/3/2] bg-zinc-200 rounded py-[10px] px-[16px] text-zinc-800"
+            class="[grid-area:2/1/3/2] bg-zinc-200 rounded py-[10px] px-[16px] text-zinc-800 break-words"
         >
           {{ message }}
         </div>
