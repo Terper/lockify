@@ -2,13 +2,36 @@
   <div class="playlist pt-4">
     <!-- playlist selector -->
     <div v-if="selectedPlaylist == -1" class="flex flex-col gap-2">
-      <button
-        class="border rounded p-2 text-2xl text-white border-[color:hsl(160,100%,37%)]"
+      <div
+        class="border rounded p-2 border-[color:hsl(160,100%,37%)]"
         v-for="(playlist, index) in playlists"
-        @click="selectPlaylist($event, index)"
       >
-        {{ playlist.name }}
-      </button>
+        <div class="text-white flex flex-row justify-end relative px-4">
+          <button
+            class="text-2xl absolute inset-0 text-center"
+            @click="selectPlaylist($event, index)"
+          >
+            {{ playlist.name }}
+          </button>
+          <!-- organizing buttons-->
+          <div class="text-xs relative flex flex-col">
+            <button
+              :disabled="index == 0"
+              class="disabled:opacity-50 z-10 hover:opacity-75"
+              @click="movePlaylistUp($event, index)"
+            >
+              ▲
+            </button>
+            <button
+              :disabled="index == playlists.length - 1"
+              class="disabled:opacity-50 z-10 hover:opacity-75"
+              @click="movePlaylistDown($event, index)"
+            >
+              ▼
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- track selector -->
@@ -21,7 +44,7 @@
         @click="selectPlaylist($event, -1)"
         class="flex items-center justify-between border-b border-[color:hsl(160,100%,37%)] px-4 py-2 text-white relative text-2xl"
       >
-        <div class="relative">Back</div>
+        <div class="relative">←</div>
         <div class="absolute inset-0 text-center py-2">
           {{ playlists[selectedPlaylist].name }}
         </div>
@@ -99,6 +122,12 @@ export default {
       s = s < 10 ? "0" + s : s;
 
       return `${m}:${s}`;
+    },
+    movePlaylistUp(event, index) {
+      this.playlists.splice(index - 1, 0, ...this.playlists.splice(index, 1));
+    },
+    movePlaylistDown(event, index) {
+      this.playlists.splice(index + 1, 0, ...this.playlists.splice(index, 1));
     },
   },
 };
