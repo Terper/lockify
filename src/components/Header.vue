@@ -9,8 +9,9 @@
       
       <button class="menu-btn" @click="toggleMenu">X</button>
     </div>
-    <div class="ai-wrap">
-    <button v-if="isHeaderExpanded" @click="switchPage" class="ai-btn">
+    <div v-if="isHeaderExpanded" class="btn-wrap">
+    <Song></Song>
+    <button @click="switchPage" class="ai-btn">
       Mood Recognizer
     </button>
   </div>
@@ -20,6 +21,7 @@
 
 <script>
 import Playlist from './Playlist.vue';
+import Song from './Song.vue';
 
 export default {
   props: {
@@ -39,10 +41,11 @@ export default {
     },
     switchPage() {
       this.$emit('switchPage');
-    },
+    }
   },
   components: {
-    Playlist 
+    Playlist,
+    Song 
   }
 };
 </script>
@@ -56,8 +59,9 @@ export default {
   transition: height 0.5s ease, max-height 0.5s ease; 
 }
 
-.ai-wrap{
+.btn-wrap{
   display: flex;
+  margin-top: 1%;
 }
 
 .logoGreeting {
@@ -91,7 +95,7 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-.menu-btn:hover, .ai-btn:hover {
+.menu-btn:hover, .ai-btn:hover, .add-btn:hover {
   background-color: hsla(160, 100%, 37%, 0.8);
 }
 
