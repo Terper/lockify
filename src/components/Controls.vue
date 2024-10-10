@@ -2,7 +2,7 @@
 
     <div class="footer">
         <div class="whatSong">
-            <img src="./bilder/albumcover.webp" alt="">
+            <img src="../assets/albumcover.webp" alt="">
             <div class="nameAndArtist">
                 <h4 class="nameSong">Darude</h4>
                 <p class="artist">Sandstorm</p>
