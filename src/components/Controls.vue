@@ -73,11 +73,7 @@
     .nameSong{
         align-self: baseline;
     }
-
-    .artist{
-
-    }
-
+    
     .navPlaying{
         position: absolute;
         left: 50%;

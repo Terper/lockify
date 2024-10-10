@@ -20,9 +20,11 @@ export default {
     }
   },
   methods: {
+    switchPage() {
+      this.$emit('switchPage');
+    },
     onLoginClick(username) {
-      this.username = username
-
+      this.username = username;
     }
   }
 }
@@ -30,7 +32,7 @@ export default {
 
 <template>
   <div class="wrapper">
-    <Header :username="username"></Header>
+    <Header @switchPage="switchPage" :username="username"></Header>
     <div class="main">
       <!-- main -->
       <Login @updateLoginStatus="onLoginClick"></Login>

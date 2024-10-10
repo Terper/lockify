@@ -8,19 +8,30 @@ export default {
     AiRecognizer,
     Main,
   },
-  computed: {
-    isAiRecognizerPage() {
-      return window.location.pathname === '/ai';
-    }
+  data() {
+    return {
+      isAiRecognizerPage: false,
+      username: ''
+    };
   },
-}
+  methods: {
+    switchPage() {
+      this.isAiRecognizerPage = !this.isAiRecognizerPage; 
+    },
+    onLoginClick(username) {
+      this.username = username;
+    }
+  }
+};
 </script>
 
 <template>
-  <template v-if="!isAiRecognizerPage">
-    <Main/>
-  </template>
-  <template v-else>
-    <AiRecognizer/>
-  </template>
+  <div>
+    <template v-if="!isAiRecognizerPage">
+      <Main @switchPage="switchPage" :username="username"/>
+    </template>
+    <template v-else>
+      <AiRecognizer/>
+    </template>
+  </div>
 </template>
