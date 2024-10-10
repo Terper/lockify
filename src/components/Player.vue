@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-.player {
+/* .player {
   overflow: hidden;
   border: 2px solid hsla(160, 100%, 37%, 1); 
   border-radius: 10px;
@@ -36,5 +36,5 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
+} */
 </style>
