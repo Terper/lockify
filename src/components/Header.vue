@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .header {
     overflow: hidden;
     border: 2px solid hsla(160, 100%, 37%, 1);
@@ -86,10 +86,10 @@ export default {
     margin: 0;
 }
 
-.menu-btn, .ai-btn, .login-btn {
+.menu-btn, .ai-btn, :deep(.login-btn) {
     margin-left: 0.5rem;
     margin-top: auto;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     background-color: hsla(160, 100%, 37%, 1);
     color: white;
     border: none;
@@ -98,7 +98,7 @@ export default {
     transition: background-color 0.3s ease;
 }
 
-.menu-btn:hover, .ai-btn:hover {
+.menu-btn:hover, .ai-btn:hover, :deep(.login-btn:hover) {
     background-color: hsla(160, 100%, 37%, 0.8);
 }
 

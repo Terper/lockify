@@ -27,7 +27,7 @@ export default {
     }, methods: {
         processCredentials() {
             if (this.isVisible === false) {
-                console.log("clearing");
+                console.log("Clearing credentials");
                 this.username = '';
                 this.password = ''
             }
