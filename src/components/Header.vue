@@ -1,111 +1,112 @@
 <template>
-  <div class="header">
-    <div class="logoGreeting">
-      <img alt="Lockify logo" class="logo" src="../assets/logo-lockify.svg" width="125" height="125" />
-      
-      <div class="greetings">
-        <h1 class="green">Lockify♫<br /> Play Yourself {{ username }}</h1>
-      </div>
-      
-      <button class="menu-btn" @click="toggleMenu">X</button>
-    </div>
-    <div v-if="isHeaderExpanded" class="btn-wrap">
+    <div class="header">
+        <div class="logoGreeting">
+            <img alt="Lockify logo" class="logo" src="../assets/logo-lockify-dark.svg" width="150" height="150"/>
+            <div class="greetings">
+                <h1 class="green">Lockify♫<br /> Play Yourself {{ username }}</h1>
+            </div>
+            <Login @toggleLoginStatus="toggleLoginStatus"></Login>
+            <button class="menu-btn" @click="toggleMenu">X</button>
+        </div>
+        <div v-if="isHeaderExpanded" class="btn-wrap">
     <Song></Song>
     <button @click="switchPage" class="ai-btn">
       Mood Recognizer
     </button>
-  </div>
-    <Playlist v-if="isHeaderExpanded"></Playlist>
-  </div>
+        </div>
+        <Playlist v-if="isHeaderExpanded"></Playlist>
+    </div>
 </template>
 
 <script>
+import Login from './Login.vue';
 import Playlist from './Playlist.vue';
 import Song from './Song.vue';
 
 export default {
-  props: {
-    username: {
-      type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      isHeaderExpanded: false  
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.isHeaderExpanded = !this.isHeaderExpanded;  
+    data() {
+        return {
+            isHeaderExpanded: false,
+            username: ''
+        };
     },
-    switchPage() {
-      this.$emit('switchPage');
+    methods: {
+        toggleLoginStatus(username) {
+            this.username = username;
+        },
+        toggleMenu() {
+            this.isHeaderExpanded = !this.isHeaderExpanded;
+        },
+        switchPage() {
+            this.$emit('switchPage');
+        },
+    },
+    components: {
+        Login,
+        Playlist,
+        Song
     }
-  },
-  components: {
-    Playlist,
-    Song 
-  }
 };
 </script>
 
 <style>
 .header {
-  overflow: hidden;
-  border: 2px solid hsla(160, 100%, 37%, 1); 
-  border-radius: 10px;
-  padding: 1rem;
-  transition: height 0.5s ease, max-height 0.5s ease; 
+    overflow: hidden;
+    border: 2px solid hsla(160, 100%, 37%, 1);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: height 0.5s ease, max-height 0.5s ease;
 }
 
 .btn-wrap{
   display: flex;
   align-items: start;
   justify-content: space-between;
-  margin-top: 1%;
+  margin-top: auto;
 }
 
 .logoGreeting {
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;;
 }
 
 .logo {
-  margin-right: 1rem; 
+    margin-right: 1rem;
 }
 
 .greetings {
-  display: flex; 
-  align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 .greetings h1 {
-  margin: 0;
+    margin: 0;
 }
 
-.menu-btn, .ai-btn {
-  margin-left: auto; 
-  padding: 1rem;
-  background-color: hsla(160, 100%, 37%, 1);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.menu-btn, .ai-btn, .login-btn {
+    margin-left: 0.5rem;
+    margin-top: auto;
+    padding: 0.5rem 1rem;
+    background-color: hsla(160, 100%, 37%, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .menu-btn:hover, .ai-btn:hover {
-  background-color: hsla(160, 100%, 37%, 0.8);
+    background-color: hsla(160, 100%, 37%, 0.8);
 }
 
 .green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-  font-size: 2rem;
+    text-decoration: none;
+    color: hsla(160, 100%, 37%, 1);
+    transition: 0.4s;
+    padding: 3px;
+    font-size: 2rem;
 }
 </style>

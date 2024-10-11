@@ -3,35 +3,31 @@ import Main from './components/Main.vue'
 import AiRecognizer from "@/components/AiRecognizer.vue";
 
 export default {
-  name: 'app',
-  components: {
-    AiRecognizer,
-    Main,
-  },
-  data() {
-    return {
-      isAiRecognizerPage: false,
-      username: ''
-    };
-  },
-  methods: {
-    switchPage() {
-      this.isAiRecognizerPage = !this.isAiRecognizerPage; 
+    name: 'app',
+    components: {
+        AiRecognizer,
+        Main,
     },
-    onLoginClick(username) {
-      this.username = username;
+    data() {
+        return {
+            isAiRecognizerPage: false
+        };
+    },
+    methods: {
+        switchPage() {
+            this.isAiRecognizerPage = !this.isAiRecognizerPage;
+        }
     }
-  }
 };
 </script>
 
 <template>
-  <div>
-    <template v-if="!isAiRecognizerPage">
-      <Main @switchPage="switchPage" :username="username"/>
-    </template>
-    <template v-else>
-      <AiRecognizer/>
-    </template>
-  </div>
+    <div>
+        <template v-if="!isAiRecognizerPage">
+            <Main @switchPage="switchPage"/>
+        </template>
+        <template v-else>
+            <AiRecognizer/>
+        </template>
+    </div>
 </template>

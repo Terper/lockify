@@ -1,15 +1,16 @@
 <template>
     <div class="login">
-        <div id="loginForm" v-if="visible">
+        <div v-if="isVisible">
             <form>
                 <label for="username">Användarnamn:</label>
                 <input id="username" type="text" v-model="username">
                 <label for="password">Lösenord:</label>
                 <input id="password" type="password" v-model="password">
-                <button type="submit" @click.once.prevent="processCredentials">Logga in</button>
+                <button type="submit" class="login-btn" @click.once.prevent="processCredentials">Logga in</button>
             </form>
         </div>
-        <button type="submit" id="logout" v-else v-cloak @click.once.prevent="processCredentials">Logga ut</button>
+        <button v-else type="submit" class="login-btn" v-cloak @click.once.prevent="processCredentials">Logga ut
+        </button>
     </div>
 </template>
 
@@ -19,19 +20,19 @@ export default {
     props: ['username'],
     data() {
         return {
-            visible: true,
+            isVisible: true,
             username: '',
             password: ''
         }
     }, methods: {
-        processCredentials(event) {
-            if (this.visible === false) {
+        processCredentials() {
+            if (this.isVisible === false) {
                 console.log("clearing");
                 this.username = '';
                 this.password = ''
             }
-            this.visible = !this.visible;
-            this.$emit('updateLoginStatus', this.username)
+            this.isVisible = !this.isVisible;
+            this.$emit('toggleLoginStatus', this.username)
         }
     }
 }
@@ -44,19 +45,16 @@ export default {
 
 button {
     color: white;
-    display: block;
-    margin: 2px;
-    position: relative;
-    top: 80%;}
+    margin-top: auto;
+}
 
 label {
     color: white;
     display: block;
-    margin: 2px;
 }
 
 .login {
-    grid-area: login;
+    margin-top: auto;
+    margin-left: auto;
 }
-
 </style>
