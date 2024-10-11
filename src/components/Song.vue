@@ -52,7 +52,7 @@ export default {
 .add-btn{
   margin-left: 1%;
   margin-right: auto;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   background-color: hsla(160, 100%, 37%, 1);
   color: white;
   border: none;

@@ -61,6 +61,8 @@ export default {
 
 .btn-wrap{
   display: flex;
+  align-items: start;
+  justify-content: space-between;
   margin-top: 1%;
 }
 
@@ -86,7 +88,7 @@ export default {
 
 .menu-btn, .ai-btn {
   margin-left: auto; 
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   background-color: hsla(160, 100%, 37%, 1);
   color: white;
   border: none;
@@ -95,7 +97,7 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-.menu-btn:hover, .ai-btn:hover, .add-btn:hover {
+.menu-btn:hover, .ai-btn:hover {
   background-color: hsla(160, 100%, 37%, 0.8);
 }
 
