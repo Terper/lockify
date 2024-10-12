@@ -3,11 +3,11 @@
         <div class="logoGreeting">
             <img alt="Lockify logo" class="logo" src="../assets/logo-lockify-dark.svg" width="150" height="150"/>
             <div class="greetings">
-                <h1 class="green">Lockify♫<br /> Play Yourself {{ username }}</h1>
+                <h1 class="green" v-cloak>Lockify♫<br /> Play Yourself {{ username }}</h1>
             </div>
-            <Login @toggleLoginStatus="toggleLoginStatus"></Login>
-            <button v-if="username && !isHeaderExpanded" class="menu-btn" @click="toggleMenu">&#9776;</button>
-            <button v-else-if="username && isHeaderExpanded" class="menu-btn" @click="toggleMenu">X</button>
+            <Login @toggle-login-status="toggleLoginStatus"></Login>
+            <button v-if="!isHeaderExpanded" class="menu-btn" @click="toggleMenu">&#9776;</button>
+            <button v-else-if="isHeaderExpanded" class="menu-btn" @click="toggleMenu">X</button>
         </div>
         <div v-if="isHeaderExpanded" class="btn-wrap">
     <Song></Song>
@@ -27,13 +27,15 @@ export default {
     data() {
         return {
             isHeaderExpanded: false,
-            username: ''
+            username: '',
+            isLoggedIn: false,
         };
     },
     methods: {
-        toggleLoginStatus(username) {
+        toggleLoginStatus(username, isLoggedIn) {
             this.username = username;
-            this.$emit('toggleLoginStatus', username);
+            this.isLoggedIn = isLoggedIn;
+            this.$emit('toggleLoginStatus', this.isLoggedIn);
         },
         toggleMenu() {
             this.isHeaderExpanded = !this.isHeaderExpanded;
@@ -51,6 +53,10 @@ export default {
 </script>
 
 <style scoped>
+[v-cloak] {
+    display: none;
+}
+
 .header {
     overflow: hidden;
     border: 2px solid hsla(160, 100%, 37%, 1);
@@ -87,20 +93,7 @@ export default {
     margin: 0;
 }
 
-.menu-btn{
-  margin-left: 0.5rem;
-    margin-top: auto;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    font-size: 1.5rem;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.ai-btn, :deep(.login-btn) {
+.menu-btn, .ai-btn, :deep(.login-btn) {
     margin-left: 0.5rem;
     margin-top: auto;
     padding: 0.5rem;

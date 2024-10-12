@@ -5,22 +5,22 @@ import Header from './Header.vue'
 
 export default {
     name: 'app',
-    data() {
-        return {
-            username: ''
-        };
-    },
     components: {
         Player,
         Playlist,
         Header
     },
+    data() {
+        return {
+            isLoggedIn: false,
+        };
+    },
     methods: {
-      toggleLoginStatus(username) {
-            this.username = username;
-        },
         switchPage() {
             this.$emit('switchPage');
+        },
+        toggleLoginStatus(isLoggedIn) {
+            this.isLoggedIn = isLoggedIn;
         }
     }
 }
@@ -28,16 +28,19 @@ export default {
 
 <template>
     <div class="wrapper">
-      <Header @switchPage="switchPage" :username="username" @toggleLoginStatus="toggleLoginStatus"></Header>
-        <div class="main">
-        <Playlist v-if="username"></Playlist>
+        <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus"></Header>
+        <div class="main" v-show=isLoggedIn v-cloak>
         </div>
-        <Player></Player>
+        <Player v-show=isLoggedIn v-cloak></Player>
     </div>
 </template>
 
 
 <style scoped>
+[v-cloak] {
+    display: none;
+}
+
 .wrapper {
     background: var(--vt-c-black);
     min-height: 100vh;
@@ -58,6 +61,7 @@ a {
 
 .main {
     display: flex;
+    height: 100%;
     flex-direction: column;
 }
 </style>
