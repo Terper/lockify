@@ -1,18 +1,24 @@
 <script>
 import Player from './Player.vue'
 import Playlist from './Playlist.vue'
-import Menu from './Menu.vue'
 import Header from './Header.vue'
 
 export default {
     name: 'app',
+    data() {
+        return {
+            username: ''
+        };
+    },
     components: {
         Player,
         Playlist,
-        Menu,
         Header
     },
     methods: {
+      toggleLoginStatus(username) {
+            this.username = username;
+        },
         switchPage() {
             this.$emit('switchPage');
         }
@@ -22,9 +28,9 @@ export default {
 
 <template>
     <div class="wrapper">
-        <Header @switchPage="switchPage"></Header>
+      <Header @switchPage="switchPage" :username="username" @toggleLoginStatus="toggleLoginStatus"></Header>
         <div class="main">
-
+        <Playlist v-if="username"></Playlist>
         </div>
         <Player></Player>
     </div>
@@ -52,7 +58,6 @@ a {
 
 .main {
     display: flex;
-    height: 100%;
     flex-direction: column;
 }
 </style>

@@ -6,7 +6,8 @@
                 <h1 class="green">Lockify♫<br /> Play Yourself {{ username }}</h1>
             </div>
             <Login @toggleLoginStatus="toggleLoginStatus"></Login>
-            <button class="menu-btn" @click="toggleMenu">X</button>
+            <button v-if="username && !isHeaderExpanded" class="menu-btn" @click="toggleMenu">&#9776;</button>
+            <button v-else-if="username && isHeaderExpanded" class="menu-btn" @click="toggleMenu">X</button>
         </div>
         <div v-if="isHeaderExpanded" class="btn-wrap">
     <Song></Song>
@@ -14,7 +15,6 @@
       Mood Recognizer
     </button>
         </div>
-        <Playlist v-if="isHeaderExpanded"></Playlist>
     </div>
 </template>
 
@@ -33,6 +33,7 @@ export default {
     methods: {
         toggleLoginStatus(username) {
             this.username = username;
+            this.$emit('toggleLoginStatus', username);
         },
         toggleMenu() {
             this.isHeaderExpanded = !this.isHeaderExpanded;
@@ -86,7 +87,20 @@ export default {
     margin: 0;
 }
 
-.menu-btn, .ai-btn, :deep(.login-btn) {
+.menu-btn{
+  margin-left: 0.5rem;
+    margin-top: auto;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ai-btn, :deep(.login-btn) {
     margin-left: 0.5rem;
     margin-top: auto;
     padding: 0.5rem;

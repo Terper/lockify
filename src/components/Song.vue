@@ -6,14 +6,6 @@
       <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" accept=".mp3" />
     </div>
     <button class="add-btn" @click="triggerFileInput">Upload</button>
-
-    <div v-if="mySongs.length > 0" class="uploaded-files">
-      <h2>Your songs</h2>
-      <ul>
-        <li v-for="(song, index) in mySongs" :key="index">{{ song.name }}</li>
-      </ul>
-    </div>
-
 </template>
 
 <script>
@@ -50,8 +42,7 @@ export default {
 
 <style>
 .add-btn{
-  margin-left: 1%;
-  margin-right: auto;
+  margin: 0.5rem auto 0 0.5rem;
   padding: 1rem;
   background-color: hsla(160, 100%, 37%, 1);
   color: white;
@@ -66,26 +57,5 @@ export default {
   padding: 20px;
   text-align: center;
   cursor: pointer;
-}
-
-
-.uploaded-files {
-  margin-top: 1rem;
-  background: hsla(0, 0%, 100%, 0.1);
-  padding: 1rem;
-  border-radius: 5px;
-}
-
-.uploaded-files h2 {
-  margin: 0 0 0.5rem;
-}
-
-.uploaded-files ul {
-  list-style: none;
-  padding: 0;
-}
-
-.uploaded-files li {
-  color: hsla(160, 100%, 37%, 1);
 }
 </style>
