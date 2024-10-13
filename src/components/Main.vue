@@ -30,6 +30,7 @@ export default {
     <div class="wrapper">
         <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus"></Header>
         <div class="main" v-show=isLoggedIn v-cloak>
+            <Playlist v-show=isLoggedIn v-cloak></Playlist>
         </div>
         <Player v-show=isLoggedIn v-cloak></Player>
     </div>
@@ -61,7 +62,6 @@ a {
 
 .main {
     display: flex;
-    height: 100%;
     flex-direction: column;
 }
 </style>
