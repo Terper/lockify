@@ -3,10 +3,10 @@
         <div v-if="!isLoggedIn">
             <form>
                 <label for="username">Username:</label>
-                <input id="username" type="text" v-model="username">
+                <input id="username" type="text" maxlength=10 v-model="username" required>
                 <label for="password">Password:</label>
-                <input id="password" type="password" v-model="password">
-                <button type="submit" class="login-btn" @click.once.prevent="processCredentials">Login</button>
+                <input id="password" type="password" v-model="password"><br>
+                <button type="submit" class="login-btn" @click.stop="processCredentials">Login</button>
             </form>
         </div>
         <button v-else type="submit" class="login-btn" v-cloak @click.once.prevent="processCredentials">Logout</button>
@@ -24,13 +24,15 @@ export default {
         }
     }, methods: {
         processCredentials() {
-            if (this.isLoggedIn === true) {
-                console.log("Clearing credentials");
-                this.username = '';
-                this.password = ''
+            if (this.username) {
+                if (this.isLoggedIn === true) {
+                    console.log("Clearing credentials");
+                    this.username = '';
+                    this.password = ''
+                }
+                this.isLoggedIn = !this.isLoggedIn;
+                this.$emit('toggleLoginStatus', this.username, this.isLoggedIn)
             }
-            this.isLoggedIn = !this.isLoggedIn;
-            this.$emit('toggleLoginStatus', this.username, this.isLoggedIn)
         }
     }
 }
@@ -41,9 +43,8 @@ export default {
     display: none;
 }
 
-button {
-    color: white;
-    margin-top: auto;
+input {
+    margin: 0.1rem;
 }
 
 label {

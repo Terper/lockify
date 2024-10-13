@@ -6,8 +6,7 @@
                 <h1 class="green" v-cloak>Lockify♫<br /> Play Yourself {{ username }}</h1>
             </div>
             <Login @toggle-login-status="toggleLoginStatus"></Login>
-            <button v-if="!isHeaderExpanded" class="menu-btn" @click="toggleMenu">&#9776;</button>
-            <button v-else-if="isHeaderExpanded" class="menu-btn" @click="toggleMenu">X</button>
+            <button class="menu-btn" @click="toggleMenu">&#9776;</button>
         </div>
         <div v-if="isHeaderExpanded" class="btn-wrap">
     <Song></Song>
@@ -103,6 +102,7 @@ export default {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    float: right;
 }
 
 .menu-btn:hover, .ai-btn:hover, :deep(.login-btn:hover) {
