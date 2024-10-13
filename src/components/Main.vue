@@ -30,7 +30,10 @@ export default {
         },
         deleteSong(index) {
             this.mySongs.splice(index, 1);
-        }  
+        },
+        clearAllSongs() {
+            this.mySongs.splice(0, this.mySongs.length);
+        }
     }
 };
 </script>
@@ -39,7 +42,7 @@ export default {
     <div class="wrapper">
         <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus" @updateSongs="updateMySongs"></Header>
         <div class="main" v-show=isLoggedIn v-cloak>
-            <SongList v-if="isLoggedIn && mySongs.length > 0" :songs="mySongs" @deleteSong="deleteSong"></SongList>
+            <SongList v-show="isLoggedIn" :songs="mySongs" @deleteSong="deleteSong" @clearSongs="clearAllSongs"></SongList>
             <Playlist v-show=isLoggedIn v-cloak></Playlist>
         </div>
         <Player v-show=isLoggedIn v-cloak></Player>
