@@ -91,8 +91,16 @@ const moodList = ref([
         src: "https://cdn.pixabay.com/download/audio/2024/09/03/audio_cdf98ea77b.mp3?filename=sad-emotional-and-dramatic-piano-237661.mp3",
       },
       {
-        label: "JuliusH - Rain and Tears - Sad Piano Music with Rain and Thunderstorm",
+        label: "JuliusH - Rain and Tears",
         src: "https://cdn.pixabay.com/download/audio/2021/08/29/audio_4b2c695936.mp3?filename=rain-and-tears-sad-piano-music-with-rain-and-thunderstorm-7804.mp3",
+      },
+      {
+        label: "JuliusH - Melancholy",
+        src: "https://cdn.pixabay.com/download/audio/2021/04/07/audio_37370aad0f.mp3?filename=melancholy-sad-piano-music-3802.mp3",
+      },
+      {
+        label: "Calvin Clavier - Song From A Secret Garden",
+        src: "https://cdn.pixabay.com/download/audio/2024/04/30/audio_dda4d66015.mp3?filename=song-from-a-secret-garden-sad-piano-205576.mp3",
       },
     ],
   },
@@ -100,8 +108,16 @@ const moodList = ref([
     mood: "Happy",
     musicList: [
       {
-        label: "FASSounds – Good Morning - Upbeat Happy Ukulele",
+        label: "FASSounds – Good Morning",
         src: "https://cdn.pixabay.com/download/audio/2024/09/25/audio_5e402fa85f.mp3?filename=good-morning-upbeat-happy-ukulele-244395.mp3",
+      },
+      {
+        label: "AlexGuz – Happy Indie",
+        src: "https://cdn.pixabay.com/download/audio/2024/04/26/audio_b33d0e8139.mp3?filename=happy-indie-204754.mp3",
+      },
+      {
+        label: "AudioCoffee – Happy Holiday",
+        src: "https://cdn.pixabay.com/download/audio/2022/09/16/audio_34334487a1.mp3?filename=happy-holiday-120132.mp3",
       },
     ],
   },
@@ -131,8 +147,8 @@ async function startCamera() {
         isProcessing.value = false;
         message.value = null;
         randomizeMood();
-      }, 5000);
-    }, 5000);
+      }, 3500);
+    }, 3500);
   } catch (error) {
     console.error(error);
     message.value = "Unable to use camera!";
