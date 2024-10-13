@@ -9,7 +9,7 @@
             <button class="menu-btn" @click="toggleMenu">&#9776;</button>
         </div>
         <div v-if="isHeaderExpanded" class="btn-wrap">
-    <Song></Song>
+    <Song @updateSongs="updateMySongs"></Song>
     <button @click="switchPage" class="ai-btn">
       Mood Recognizer
     </button>
@@ -28,6 +28,7 @@ export default {
             isHeaderExpanded: false,
             username: '',
             isLoggedIn: false,
+            mySongs: []
         };
     },
     methods: {
@@ -41,6 +42,10 @@ export default {
         },
         switchPage() {
             this.$emit('switchPage');
+        },
+        updateMySongs(songs) {
+          this.mySongs = songs
+          this.$emit('updateSongs', this.mySongs);
         },
     },
     components: {

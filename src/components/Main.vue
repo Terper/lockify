@@ -2,17 +2,20 @@
 import Player from './Player.vue'
 import Playlist from './Playlist.vue'
 import Header from './Header.vue'
+import SongList from './SongList.vue'
 
 export default {
     name: 'app',
     components: {
         Player,
         Playlist,
-        Header
+        Header,
+        SongList
     },
     data() {
         return {
             isLoggedIn: false,
+            mySongs: []
         };
     },
     methods: {
@@ -21,15 +24,22 @@ export default {
         },
         toggleLoginStatus(isLoggedIn) {
             this.isLoggedIn = isLoggedIn;
-        }
+        },
+        updateMySongs(songs) {
+            this.mySongs = songs;
+        },
+        deleteSong(index) {
+            this.mySongs.splice(index, 1);
+        }  
     }
-}
+};
 </script>
 
 <template>
     <div class="wrapper">
-        <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus"></Header>
+        <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus" @updateSongs="updateMySongs"></Header>
         <div class="main" v-show=isLoggedIn v-cloak>
+            <SongList v-if="isLoggedIn && mySongs.length > 0" :songs="mySongs" @deleteSong="deleteSong"></SongList>
             <Playlist v-show=isLoggedIn v-cloak></Playlist>
         </div>
         <Player v-show=isLoggedIn v-cloak></Player>

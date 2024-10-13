@@ -26,14 +26,16 @@ export default {
       const files = event.target.files;
       if (files.length > 0) {
         this.mySongs.push(...files);
+        this.$emit('updateSongs', this.mySongs);
       }
-    },
+    }, 
 
 
     handleDrop(event) {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         this.mySongs.push(...files);
+        this.$emit('updateSongs', this.mySongs);
       }
     }
   }
