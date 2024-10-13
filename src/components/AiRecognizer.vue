@@ -1,22 +1,22 @@
 <template>
-  <div class="reset">
-    <header class="sticky px-[24px] py-[16px] border-b border-b-gray-200">
-      <a href="/" class="font-medium text-lg">Ai Recognizer</a>
+  <div class="min-h-screen flex flex-col" :class="['bg-gradient-to-r from-purple-500 via-pink-500 to-red-500']">
+    <header class="sticky top-0 px-[24px] py-[16px] bg-white shadow-md z-10">
+      <a href="/" class="font-semibold text-xl text-gray-800">Ai Recognizer</a>
     </header>
 
-    <section class="flex items-center justify-center p-[10rem]">
+    <section class="flex-grow flex items-center justify-center p-[5rem]">
       <div class="grid grid-cols-2 gap-8 w-[min(100%,1000px)] min-md:grid-cols-1">
         <div
-            class="[grid-area:1/1/2/2] aspect-square bg-zinc-200 rounded py-[10px] px-[16px]"
+            class="aspect-square bg-white rounded-xl shadow-lg py-[10px] px-[16px] transition-transform duration-500 ease-in-out transform hover:scale-105"
             :class="['flex justify-center items-center']"
         >
           <button
               v-if="!cameraStarted && !isProcessing"
               type="button"
-              class="top-auto bg-indigo-500 hover:bg-indigo-700 text-white font-medium text-sm py-[8px] px-[16px] rounded"
+              class="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold text-sm py-[10px] px-[20px] rounded-full transition-all duration-300 ease-in-out shadow-md transform hover:scale-105"
               @click="startCamera()"
           >
-            Start
+            Start Camera
           </button>
 
           <div v-else-if="isProcessing">
@@ -25,7 +25,7 @@
                 width="48px"
                 height="48px"
                 viewBox="0 0 24 24"
-                class="text-zinc-800"
+                class="text-gray-700 animate-spin"
             >
               <path
                   fill="currentColor"
@@ -47,30 +47,35 @@
           </div>
         </div>
 
-        <div class="[grid-area:1/2/3/3] bg-zinc-200 rounded py-[10px] px-[16px] flex">
+        <div class="bg-white rounded-xl shadow-lg py-[10px] px-[16px] flex flex-col overflow-auto">
           <ul class="flex flex-col gap-y-[12px] w-full overflow-scroll">
-            <li class="w-full max-w-full" v-if="currentMood" v-for="(musicItem, key) in currentMood.musicList"
-                :key="key">
-              <MusicPlayer :music="{ label: musicItem.label, source: musicItem.src }" :key="key"/>
+            <li
+                class="w-full max-w-full"
+                v-if="currentMood"
+                v-for="(musicItem, key) in currentMood.musicList"
+                :key="key"
+            >
+              <div class="bg-gray-300 rounded-md p-[10px]">
+                <MusicPlayer :music="{ label: musicItem.label, source: musicItem.src }"/>
+              </div>
             </li>
           </ul>
         </div>
 
+
         <div
             v-if="message"
-            class="[grid-area:2/1/3/2] bg-zinc-200 rounded py-[10px] px-[16px] text-zinc-800 break-words"
+            class="bg-white rounded-xl shadow-lg py-[10px] px-[16px] text-gray-700 break-words"
         >
           {{ message }}
         </div>
 
-        <div v-else class="[grid-area:2/1/3/2] bg-zinc-200 rounded py-[10px] px-[16px] text-zinc-800">
+        <div v-else class="bg-white rounded-xl shadow-lg py-[10px] px-[16px] text-gray-700">
           Your mood is: {{ currentMood?.mood }}
         </div>
       </div>
     </section>
   </div>
-
-
 </template>
 
 <script setup>
@@ -83,21 +88,39 @@ const moodList = ref([
     musicList: [
       {
         label: "Cold Fire – Emotional Piano",
-        src: "https://cdn.pixabay.com/download/audio/2024/09/03/audio_cdf98ea77b.mp3?filename=sad-emotional-and-dramatic-piano-237661.mp3"
+        src: "https://cdn.pixabay.com/download/audio/2024/09/03/audio_cdf98ea77b.mp3?filename=sad-emotional-and-dramatic-piano-237661.mp3",
       },
       {
-        label: "JuliusH - Rain and Tears - Sad Piano Music with Rain and Thunderstorm",
-        src: "https://cdn.pixabay.com/download/audio/2021/08/29/audio_4b2c695936.mp3?filename=rain-and-tears-sad-piano-music-with-rain-and-thunderstorm-7804.mp3"
+        label: "JuliusH - Rain and Tears",
+        src: "https://cdn.pixabay.com/download/audio/2021/08/29/audio_4b2c695936.mp3?filename=rain-and-tears-sad-piano-music-with-rain-and-thunderstorm-7804.mp3",
+      },
+      {
+        label: "JuliusH - Melancholy",
+        src: "https://cdn.pixabay.com/download/audio/2021/04/07/audio_37370aad0f.mp3?filename=melancholy-sad-piano-music-3802.mp3",
+      },
+      {
+        label: "Calvin Clavier - Song From A Secret Garden",
+        src: "https://cdn.pixabay.com/download/audio/2024/04/30/audio_dda4d66015.mp3?filename=song-from-a-secret-garden-sad-piano-205576.mp3",
       },
     ],
   },
   {
     mood: "Happy",
-    musicList: [{
-      label: "FASSounds – Good Morning - Upbeat Happy Ukulele",
-      src: "https://cdn.pixabay.com/download/audio/2024/09/25/audio_5e402fa85f.mp3?filename=good-morning-upbeat-happy-ukulele-244395.mp3"
-    }],
-  }
+    musicList: [
+      {
+        label: "FASSounds – Good Morning",
+        src: "https://cdn.pixabay.com/download/audio/2024/09/25/audio_5e402fa85f.mp3?filename=good-morning-upbeat-happy-ukulele-244395.mp3",
+      },
+      {
+        label: "AlexGuz – Happy Indie",
+        src: "https://cdn.pixabay.com/download/audio/2024/04/26/audio_b33d0e8139.mp3?filename=happy-indie-204754.mp3",
+      },
+      {
+        label: "AudioCoffee – Happy Holiday",
+        src: "https://cdn.pixabay.com/download/audio/2022/09/16/audio_34334487a1.mp3?filename=happy-holiday-120132.mp3",
+      },
+    ],
+  },
 ]);
 
 const camera = ref();
@@ -124,8 +147,8 @@ async function startCamera() {
         isProcessing.value = false;
         message.value = null;
         randomizeMood();
-      }, 3000);
-    }, 3000);
+      }, 3500);
+    }, 3500);
   } catch (error) {
     console.error(error);
     message.value = "Unable to use camera!";
@@ -152,3 +175,30 @@ function randomizeMood() {
   currentMood.value = moodList.value[randomIndex];
 }
 </script>
+
+<style scoped>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+ul::-webkit-scrollbar {
+  display: none;
+}
+
+video {
+  border-radius: 8px;
+}
+</style>
