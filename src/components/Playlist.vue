@@ -6,30 +6,55 @@
         class="border rounded p-2 border-[color:hsl(160,100%,37%)]"
         v-for="(playlist, index) in playlists"
       >
-        <div class="text-white flex flex-row justify-end relative px-4">
+        <div class="text-white flex flex-row justify-end relative px-2">
           <button
             class="text-2xl absolute inset-0 text-center"
             @click="selectPlaylist($event, index)"
           >
             {{ playlist.name }}
           </button>
-          <!-- organizing buttons-->
-          <div class="text-xs relative flex flex-col">
+          <!-- buttons-->
+          <div class="relative flex gap-4">
+            <div class="text-xs flex flex-col">
+              <button
+                :disabled="index == 0"
+                class="disabled:opacity-50 z-10 hover:opacity-75"
+                @click="movePlaylistUp($event, index)"
+              >
+                ▲
+              </button>
+              <button
+                :disabled="index == playlists.length - 1"
+                class="disabled:opacity-50 z-10 hover:opacity-75"
+                @click="movePlaylistDown($event, index)"
+              >
+                ▼
+              </button>
+            </div>
             <button
-              :disabled="index == 0"
-              class="disabled:opacity-50 z-10 hover:opacity-75"
-              @click="movePlaylistUp($event, index)"
+              class="opacity-50 hover:opacity-100 hover:text-red-400 z-10"
+              @click="deletePlaylist($event, index)"
             >
-              ▲
-            </button>
-            <button
-              :disabled="index == playlists.length - 1"
-              class="disabled:opacity-50 z-10 hover:opacity-75"
-              @click="movePlaylistDown($event, index)"
-            >
-              ▼
+              ✕
             </button>
           </div>
+        </div>
+      </div>
+      <!-- new playlist -->
+      <div class="border rounded border-[color:hsl(160,100%,37%)]">
+        <div class="text-white flex flex-row">
+          <input
+            type="text"
+            class="bg-transparent flex-grow p-2"
+            placeholder="New playlist name"
+            v-model="newPlaylistInput"
+          />
+          <button
+            class="px-4 border-l border-[color:hsl(160,100%,37%)]"
+            @click="createPlaylist"
+          >
+            Create new playlist
+          </button>
         </div>
       </div>
     </div>
@@ -72,6 +97,7 @@
 export default {
   data() {
     return {
+      newPlaylistInput: "",
       selectedPlaylist: -1,
       playlists: [
         {
@@ -128,6 +154,14 @@ export default {
     },
     movePlaylistDown(event, index) {
       this.playlists.splice(index + 1, 0, ...this.playlists.splice(index, 1));
+    },
+    deletePlaylist(event, index) {
+      this.playlists.splice(index, 1);
+    },
+    createPlaylist() {
+      console.log(this.selectPlaylist);
+      this.playlists.push({ name: this.newPlaylistInput, tracks: [] });
+      this.newPlaylistInput = "";
     },
   },
 };
