@@ -163,6 +163,6 @@ img {
 }
 
 button:hover {
-  color: rgb(214, 0, 0);
+  color: hsla(160, 100%, 37%, 1);
 }
 </style>
