@@ -63,6 +63,12 @@ export default {
               audio,
             });
 
+            eventBus.$emit("trackUploaded", {
+              title: title || file.name.replace(".mp3", ""),
+              artist: artist || "Unknown Artist",
+              runtime: Math.floor(duration * 1000),
+              audio,
+            });
             eventBus.$emit("songsUploaded", this.mySongs);
           });
         },

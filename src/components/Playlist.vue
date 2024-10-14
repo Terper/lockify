@@ -239,13 +239,8 @@ export default {
     };
   },
   mounted() {
-    eventBus.$on("trackUploaded", async (track) => {
-      const newTrack = {
-        title: track.name.replace(".mp3", ""),
-        artist: "NULL",
-        runtime: 0,
-      };
-      this.playlists[0].tracks.push(newTrack);
+    eventBus.$on("trackUploaded", (track) => {
+      this.playlists[0].tracks.push(track);
     });
   },
   methods: {
