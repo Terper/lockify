@@ -212,11 +212,13 @@ export default {
               title: "Don't Stop Me Now",
               artist: "Queen",
               runtime: 209000,
+              audio: null,
             },
             {
               title: "Meat Grinder",
               artist: "MF DOOM",
               runtime: 132000,
+              audio: null,
             },
           ],
         },
@@ -227,11 +229,13 @@ export default {
               title: "Your Graduation",
               artist: "Modern Baseball",
               runtime: 164000,
+              audio: null,
             },
             {
               title: "Dear Maria, Count Me In",
               artist: "All Time Low",
               runtime: 183000,
+              audio: null,
             },
           ],
         },
@@ -345,6 +349,8 @@ export default {
         title: this.editTrackTitle,
         artist: this.editTrackArtist,
         runtime: this.editTrackRuntime,
+        audio:
+          this.playlists[this.selectedPlaylist].tracks[this.trackEditor].audio,
       };
       this.playlists[this.selectedPlaylist].tracks[this.trackEditor] =
         editedTrack;
