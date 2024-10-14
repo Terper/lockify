@@ -1,30 +1,32 @@
 <template>
- <div class="upload-area"
-      @dragover.prevent
-      @drop.prevent="handleDrop">
-      Drag and drop songs here!
-      <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" accept=".mp3" />
-    </div>
-    <button class="add-btn" @click="triggerFileInput">Upload</button>
+  <div class="upload-area" @dragover.prevent @drop.prevent="handleDrop">
+    Drag and drop songs here!
+    <input
+      type="file"
+      ref="fileInput"
+      @change="handleFileUpload"
+      style="display: none"
+      accept=".mp3"
+    />
+  </div>
+  <button class="add-btn" @click="triggerFileInput">Upload</button>
 </template>
 
 <script>
 import eventBus from "@/eventBus";
-import jsmediatags from '@mediatag';
+import jsmediatags from "@mediatag";
 
 export default {
   data() {
     return {
-      mySongs: []
+      mySongs: [],
     };
   },
   methods: {
-    
     triggerFileInput() {
       this.$refs.fileInput.click();
     },
-    
-    
+
     handleFileUpload(event) {
       const files = event.target.files;
       if (files.length > 0) {
@@ -40,49 +42,53 @@ export default {
     },
 
     processFiles(files) {
-      Array.from(files).forEach(file => {
+      Array.from(files).forEach((file) => {
         this.extractMetadata(file);
       });
     },
 
     extractMetadata(file) {
-    jsmediatags.read(file, {
+      jsmediatags.read(file, {
         onSuccess: (tag) => {
-            const { artist, title } = tag.tags;
-            const audio = new Audio(URL.createObjectURL(file));
+          const { artist, title } = tag.tags;
+          const audio = new Audio(URL.createObjectURL(file));
 
-            
-            audio.addEventListener('loadedmetadata', () => {
-                const duration = audio.duration;
+          audio.addEventListener("loadedmetadata", () => {
+            const duration = audio.duration;
 
-                
-                this.mySongs.push({
-                    artist: artist || "Unknown Artist",
-                    title: title || file.name.replace('.mp3', ''),
-                    duration: this.formatDuration(duration),
-                    audio
-                });
-
-                eventBus.$emit('songsUploaded', this.mySongs);
+            this.mySongs.push({
+              artist: artist || "Unknown Artist",
+              title: title || file.name.replace(".mp3", ""),
+              duration: this.formatDuration(duration),
+              audio,
             });
+
+            eventBus.$emit("trackUploaded", {
+              title: title || file.name.replace(".mp3", ""),
+              artist: artist || "Unknown Artist",
+              runtime: Math.floor(duration * 1000),
+              audio,
+            });
+            eventBus.$emit("songsUploaded", this.mySongs);
+          });
         },
         onError: (error) => {
-            console.log(error);
-        }
-    });
+          console.log(error);
+        },
+      });
     },
 
     formatDuration(seconds) {
       const minutes = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
-      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-  }
+      return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+    },
+  },
 };
 </script>
 
 <style>
-.add-btn{
+.add-btn {
   margin: 0.5rem auto 0 0.5rem;
   padding: 1rem;
   background-color: hsla(160, 100%, 37%, 1);
