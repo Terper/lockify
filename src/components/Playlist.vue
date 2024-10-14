@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import eventBus from "@/eventBus";
 export default {
   data() {
     return {
@@ -138,7 +139,10 @@ export default {
       this.selectedPlaylist = index;
     },
     selectTrack(event, index) {
-      console.log(this.playlists[this.selectedPlaylist].tracks[index]);
+      eventBus.$emit(
+        "playlistTrackSelected",
+        this.playlists[this.selectedPlaylist].tracks[index]
+      );
     },
     formatRuntime(runtime) {
       const m = Math.floor((runtime / (1000 * 60)) % 60);
