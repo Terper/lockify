@@ -5,12 +5,12 @@
             <span id="song-count">{{ mySongs.length }}</span>
         </div>
         <ul class="song-list" v-show="showSongs && mySongs.length > 0">
-            <button class="clear-btn" @click="clearSongs">Clear</button>
-            <li id="song" v-for="(song, index) in mySongs" :key="index">
-                {{ song.name.replace('.mp3', '') }}
-                <button class="del-btn" @click="deleteSong(index)">&#128465;</button>
-            </li>
-        </ul>
+    <button class="clear-btn" @click="clearSongs">Clear</button>
+    <li id="song" v-for="(song, index) in mySongs" :key="index">
+        <span>{{ song.title }} by {{ song.artist }} ({{ song.duration }})</span>
+        <button class="del-btn" @click="deleteSong(index)">&#128465;</button>
+    </li>
+</ul>
     </div>
 </template>
 
