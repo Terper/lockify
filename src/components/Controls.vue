@@ -9,7 +9,7 @@
     </div>
 
     <div class="navPlaying">
-      <button class="previouse">&#8249;</button>
+      <button class="previouse" @click="restartSong">&#8249;</button>
       <button class="play" v-if="isPlaying" @click="changeButton">
         &#10074;&#10074;
       </button>
@@ -32,19 +32,46 @@ export default {
       isPlaying: false,
       nameSong: "",
       artist: "",
+      audio: null
     };
   },
   methods: {
     changeButton() {
-      this.isPlaying = !this.isPlaying;
+      if (this.audio) {
+            if (this.isPlaying) {
+                this.audio.pause();
+            } else {
+                this.audio.play(); 
+            }
+            this.isPlaying = !this.isPlaying;
+        }
     },
-  },
-  mounted() {
-    eventBus.$on("playlistTrackSelected", (track) => {
-      this.nameSong = track.title;
-      this.artist = track.artist;
+    restartSong() {
+      if (this.audio) {
+        this.audio.currentTime = 0; 
+        this.audio.play();  
+        this.isPlaying = true;
+        }
+    }
+},
+mounted() {
+  eventBus.$on("playlistTrackSelected", (track) => {
+    this.nameSong = track.title;
+    this.artist = track.artist;
+    
+    if (this.audio) {
+      this.audio.pause();
+    }
+    this.audio = track.audio;
+    this.audio.currentTime = 0;
+    this.audio.play();
+    this.isPlaying = true;
+
+    this.audio.addEventListener('ended', () => {
+      this.isPlaying = false;
     });
-  },
+  });
+},
 };
 </script>
 
