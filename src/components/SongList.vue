@@ -2,41 +2,46 @@
     <div class="song-container">
         <div class="list-header">
             <span id="title" @click="toggleList">Your songs</span>
-            <span id="song-count">{{ songs.length }}</span>
+            <span id="song-count">{{ mySongs.length }}</span>
         </div>
-        <ul class="song-list" v-show="showSongs && songs.length > 0">
-            <button class="clear-btn" @click="clearSongs">Clear</button>
-            <li id="song" v-for="(song, index) in songs" :key="index">
-                {{ song.name.replace('.mp3', '') }}
-                <button class="del-btn" @click="deleteSong(index)">&#128465;</button>
-            </li>
-        </ul>
+        <ul class="song-list" v-show="showSongs && mySongs.length > 0">
+    <button class="clear-btn" @click="clearSongs">Clear</button>
+    <li id="song" v-for="(song, index) in mySongs" :key="index">
+        <span>{{ song.title }} by {{ song.artist }} ({{ song.duration }})</span>
+        <button class="del-btn" @click="deleteSong(index)">&#128465;</button>
+    </li>
+</ul>
     </div>
 </template>
 
 <script>
+import eventBus from "@/eventBus";
+
 export default {
-    props: {
-        songs: {
-            type: Array,
-            required: true
-        }
-    },
     data() {
         return {
-            showSongs: true
+            showSongs: true,
+            mySongs: []
         };
     },
     methods: {
-        deleteSong(index) {
-            this.$emit('deleteSong', index);
-        },
-        clearSongs() {
-            this.$emit('clearSongs');
-        },
         toggleList() {
             this.showSongs = !this.showSongs;
+        },
+        updateMySongs(songs) {
+            this.mySongs = songs;
+        },
+        deleteSong(index) {
+            this.mySongs.splice(index, 1);
+        },
+        clearSongs() {
+            this.mySongs.splice(0, this.mySongs.length);
         }
+    },
+    mounted() {
+        eventBus.$on('songsUploaded', (songs) => {
+            this.updateMySongs(songs);
+        });
     }
 };
 </script>
@@ -110,7 +115,7 @@ export default {
     margin-top: 0.5rem;
 }
 
-#song{
+#song {
     font-size: 1.25rem;
     line-height: 1rem;
     color: rgb(255 255 255);

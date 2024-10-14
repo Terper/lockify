@@ -14,6 +14,7 @@
 
 <script>
 import eventBus from "@/eventBus";
+import jsmediatags from "@mediatag";
 
 export default {
   data() {
@@ -29,18 +30,52 @@ export default {
     handleFileUpload(event) {
       const files = event.target.files;
       if (files.length > 0) {
-        this.mySongs.push(...files);
-        this.$emit("updateSongs", this.mySongs);
+        this.processFiles(files);
       }
     },
 
     handleDrop(event) {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
-        this.mySongs.push(...files);
-        eventBus.$emit("trackUploaded", ...files);
-        this.$emit("updateSongs", this.mySongs);
+        this.processFiles(files);
       }
+    },
+
+    processFiles(files) {
+      Array.from(files).forEach((file) => {
+        this.extractMetadata(file);
+      });
+    },
+
+    extractMetadata(file) {
+      jsmediatags.read(file, {
+        onSuccess: (tag) => {
+          const { artist, title } = tag.tags;
+          const audio = new Audio(URL.createObjectURL(file));
+
+          audio.addEventListener("loadedmetadata", () => {
+            const duration = audio.duration;
+
+            this.mySongs.push({
+              artist: artist || "Unknown Artist",
+              title: title || file.name.replace(".mp3", ""),
+              duration: this.formatDuration(duration),
+              audio,
+            });
+
+            eventBus.$emit("songsUploaded", this.mySongs);
+          });
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      });
+    },
+
+    formatDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     },
   },
 };
