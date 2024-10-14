@@ -17,11 +17,6 @@ import eventBus from "@/eventBus";
 import jsmediatags from "@mediatag";
 
 export default {
-  data() {
-    return {
-      mySongs: [],
-    };
-  },
   methods: {
     triggerFileInput() {
       this.$refs.fileInput.click();
@@ -56,32 +51,18 @@ export default {
           audio.addEventListener("loadedmetadata", () => {
             const duration = audio.duration;
 
-            this.mySongs.push({
-              artist: artist || "Unknown Artist",
-              title: title || file.name.replace(".mp3", ""),
-              duration: this.formatDuration(duration),
-              audio,
-            });
-
             eventBus.$emit("trackUploaded", {
               title: title || file.name.replace(".mp3", ""),
               artist: artist || "Unknown Artist",
               runtime: Math.floor(duration * 1000),
               audio,
             });
-            eventBus.$emit("songsUploaded", this.mySongs);
           });
         },
         onError: (error) => {
           console.log(error);
         },
       });
-    },
-
-    formatDuration(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
     },
   },
 };

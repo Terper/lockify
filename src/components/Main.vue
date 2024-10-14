@@ -2,7 +2,6 @@
 import Player from './Player.vue'
 import Playlist from './Playlist.vue'
 import Header from './Header.vue'
-import SongList from './SongList.vue'
 
 
 export default {
@@ -10,8 +9,7 @@ export default {
     components: {
         Player,
         Playlist,
-        Header,
-        SongList
+        Header
     },
     data() {
         return {
@@ -33,7 +31,6 @@ export default {
     <div class="wrapper">
         <Header @switchPage="switchPage" @toggle-login-status="toggleLoginStatus"></Header>
         <div class="main" v-show=isLoggedIn v-cloak>
-            <SongList v-show="isLoggedIn"></SongList>
             <Playlist v-show=isLoggedIn v-cloak></Playlist>
         </div>
         <Player v-show=isLoggedIn v-cloak></Player>
