@@ -87,19 +87,44 @@
         class="flex items-center text-white"
       >
         <button
+          v-if="index != trackEditor"
           @click="selectTrack($event, index)"
           class="flex justify-between items-center grow p-4"
         >
           <div class="flex gap-4 items-center">
             <div class="text-2xl">{{ track.title }}</div>
-            <div class="text-x opacity-50">{{ track.artist }}</div>
+            <div class="opacity-50">{{ track.artist }}</div>
           </div>
           <div class="text-xl">
             {{ formatRuntime(track.runtime) }}
           </div>
         </button>
+        <div v-else class="flex justify-between items-center grow p-4">
+          <div class="flex gap-4 items-center">
+            <input
+              type="text"
+              v-model="editTrackTitle"
+              class="bg-transparent text-2xl"
+            />
+            <input
+              type="text"
+              v-model="editTrackArtist"
+              class="bg-transparent opacity-50"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              v-model="editTrackRuntime"
+              class="bg-transparent text-xl [appearance:textfield] text-right max-w-min"
+            />ms
+          </div>
+        </div>
         <!-- buttons -->
         <div class="flex gap-4 px-4 items-center">
+          <button class="hover:opacity-75" @click="editTrack($event, index)">
+            {{ trackEditor == index ? "✓" : "✎" }}
+          </button>
           <!-- move to different playlist -->
           <div class="relative">
             <button
@@ -171,6 +196,10 @@ export default {
       newPlaylistInput: "",
       selectedPlaylist: -1,
       trackMover: -1,
+      trackEditor: -1,
+      editTrackTitle: "",
+      editTrackArtist: "",
+      editTrackRuntime: 0,
       playlists: [
         {
           name: "Unsorted",
@@ -221,9 +250,11 @@ export default {
   },
   methods: {
     selectPlaylist(event, index) {
+      this.trackEditor = -1;
       this.selectedPlaylist = index;
     },
     selectTrack(event, index) {
+      this.trackEditor = -1;
       eventBus.$emit(
         "playlistTrackSelected",
         this.playlists[this.selectedPlaylist].tracks[index]
@@ -255,9 +286,11 @@ export default {
       this.newPlaylistInput = "";
     },
     deleteTrack(event, index) {
+      this.trackeEitor = -1;
       this.playlists[this.selectedPlaylist].tracks.splice(index, 1);
     },
     moveTrackUp(event, index) {
+      this.trackEditor = -1;
       this.playlists[this.selectedPlaylist].tracks.splice(
         index - 1,
         0,
@@ -265,6 +298,7 @@ export default {
       );
     },
     moveTrackDown(event, index) {
+      this.trackEditor = -1;
       this.playlists[this.selectedPlaylist].tracks.splice(
         index + 1,
         0,
@@ -298,6 +332,28 @@ export default {
         )
       );
       this.trackMover = -1;
+      this.trackEditor = -1;
+    },
+    editTrack(event, index) {
+      if (index == this.trackEditor) {
+        this.saveTrackEdit();
+        return;
+      }
+      this.trackEditor = index;
+      const track = this.playlists[this.selectedPlaylist].tracks[index];
+      this.editTrackTitle = track.title;
+      this.editTrackArtist = track.artist;
+      this.editTrackRuntime = track.runtime;
+    },
+    saveTrackEdit() {
+      const editedTrack = {
+        title: this.editTrackTitle,
+        artist: this.editTrackArtist,
+        runtime: this.editTrackRuntime,
+      };
+      this.playlists[this.selectedPlaylist].tracks[this.trackEditor] =
+        editedTrack;
+      this.trackEditor = -1;
     },
   },
 };
