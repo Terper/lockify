@@ -15,12 +15,12 @@
           </button>
           <!-- buttons-->
           <div class="relative flex gap-4 items-center">
-            <div>
+            <div class="py-2">
               {{ playlist.tracks.length }}
             </div>
-            <div class="text-xs flex flex-col">
+            <div v-if="index != 0" class="text-xs flex flex-col">
               <button
-                :disabled="index == 0"
+                :disabled="index == 1"
                 class="disabled:opacity-50 z-10 hover:opacity-75"
                 @click="movePlaylistUp($event, index)"
               >
@@ -35,6 +35,7 @@
               </button>
             </div>
             <button
+              v-if="index != 0"
               class="opacity-50 hover:opacity-100 hover:text-red-400 z-10"
               @click="deletePlaylist($event, index)"
             >
@@ -171,6 +172,10 @@ export default {
       selectedPlaylist: -1,
       trackMover: -1,
       playlists: [
+        {
+          name: "Unsorted",
+          tracks: [],
+        },
         {
           name: "Bangers",
           tracks: [
