@@ -159,7 +159,9 @@ export default {
       this.playlists.splice(index, 1);
     },
     createPlaylist() {
-      console.log(this.selectPlaylist);
+      if (this.newPlaylistInput.length == 0) {
+        return;
+      }
       this.playlists.push({ name: this.newPlaylistInput, tracks: [] });
       this.newPlaylistInput = "";
     },
