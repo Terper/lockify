@@ -5,7 +5,7 @@
                 <label for="username">Username:</label>
                 <input id="username" type="text" maxlength=10 v-model="username" required>
                 <label for="password">Password:</label>
-                <input id="password" type="password" v-model="password"><br>
+                <input id="password" type="password" v-model="password" disabled><br>
                 <button type="submit" class="login-btn" @click.stop="processCredentials">Login</button>
             </form>
         </div>
