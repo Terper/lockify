@@ -1,3 +1,6 @@
+This project was made in a team for the course "Frameworks and web applications".
+My main responsibility was creating the playlist section to manage and create playlists and their songs.
+
 # lockify
 
 This template should help get you started developing with Vue 3 in Vite.
